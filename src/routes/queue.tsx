@@ -1,17 +1,33 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
+
 
 export const Route = createFileRoute("/queue")({
-  component: RouteComponent,
+  component: NotifyPage,
 });
 
-function RouteComponent() {
+function NotifyPage() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 gap-6 p-4">
-      <h1 className="text-gray-950 text-2xl font-semibold">คิวของคุณคือ</h1>
+    <div className="h-[95vh] flex items-center justify-center">
+      {/* กล่องใหญ่ครอบทั้งหมด */}
+      <div className=" w-[800px] max-w-[95%] p-12 rounded-4xl  flex flex-col items-center gap-8">
+        <h1 className="text-4xl font-bold text-center">
+          คิวของคุณ
+        </h1>
 
+        {/* กล่องแสดงเลขติว */}
+        <div className="bg-gray-100 w-full max-w-[700px] p-6 rounded-2xl flex flex-col items-center gap-4">
+          <div className="text-9xl font-extrabold text-[#000000]">
+            AB123
+          </div>
+        </div>
 
-      <div className="flex bg-white shadow-lg rounded-xl flex-col gap-4  p-6 w-64 h-64 text-center items-center justify-center">
-        08กล้วย23หน่วย
+        {/* ปุ่มกลับหน้าหลัก */}
+        <Link
+        to="/"
+        className="bg-[#F69522] text-white font-bold py-4 px-8 rounded-full hover:bg-orange-500 transition-transform transform hover:scale-105 active:scale-95">
+          กลับหน้าหลัก
+        </Link>
       </div>
     </div>
   );
