@@ -7,7 +7,7 @@ export const Route = createFileRoute("/login")({
 function App() {
   return (
     <div className="h-[95vh] flex items-center justify-center">
-      <div className="flex flex-col gap-8 w-[900px] max-w-[80vh] ">
+      <div className="flex flex-col gap-8 w-[900px] max-w-[80vh]">
         
         {/* Input Field */}
       <div className="relative w-full">
@@ -28,7 +28,7 @@ function App() {
             transition-all duration-200
 
             /* เมื่อ input ว่าง */
-            peer-placeholder-shown:top-5
+            peer-placeholder-shown:top-6
 
             /* เมื่อ input ถูก focus หรือมีค่า */
             peer-focus:-top-9
