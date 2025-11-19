@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 // สร้าง route ของหน้า register
-export const Route = createFileRoute("/register")({
+export const Route = createFileRoute("/register" as any)({
   component: RouteComponent,
 });
 
@@ -22,18 +22,18 @@ function FormRow({ label, children }: { label: string; children: React.ReactNode
 // Component หลักของหน้า register
 function RouteComponent() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 gap-6 h-auto p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center  gap-6 h-auto p-4">
       
       
       {/* Header / Logo */}
-      <div className="shrink-0 text-center p-4 bg-gray-100">
-        <img src="/lgrutm.png" alt="Logo" className="mx-auto h-16" />
-        <h1 className="text-2xl font-semibold text-gray-900 mt-2">REGIS2015</h1>
+      <div className="shrink-0 text-center p-4 ">
+        <img src="/lgrutm.png" alt="Logo" className="mx-auto h-30" />
+        <h1 className="text-5xl font-semibold text-orange-500 mt-2">REGIS2015</h1>
         <p className="text-green-500 mt-1">ระบบทะเบียนกลาง</p>
-        <p className="text-gray-600 text-sm mt-1">
+        <p className="text-xl mt-1">
           มหาวิทยาลัยเทคโนโลยีราชมงคลล้านนา
         </p>
-        <p className="text-gray-600 text-sm mt-1">
+        <p className="text-sm mt-1">
           (สำหรับลงทะเบียนใช้บริการ เพื่อขอเอกสารการศึกษา)
         </p>
       </div>

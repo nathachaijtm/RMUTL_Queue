@@ -28,11 +28,12 @@ export default function LayoutBlack({ children }: LayoutBlackProps) {
           zIndex: 0,
         }}
       />
-      <div
+            <div
         style={{
           position: 'absolute',
-          top: '20px',
-          right: '30px',
+          top: '20px',        // ระยะจากบน
+          left: '50%',         // กึ่งกลางแนวนอน
+          transform: 'translateX(-50%)', // ขยับกลับครึ่งความกว้างของโลโก้ให้ตรงกลาง
           zIndex: 3,
         }}
       >
@@ -42,6 +43,7 @@ export default function LayoutBlack({ children }: LayoutBlackProps) {
           style={{ height: '90px', opacity: 1.0 }}
         />
       </div>
+
       
       {/* 🔹 ชั้นเนื้อหา */}
       <div style={{ position: 'relative', padding: '20px', zIndex: 1 }}>
