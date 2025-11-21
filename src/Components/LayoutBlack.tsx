@@ -38,7 +38,7 @@ export default function LayoutBlack({ children }: LayoutBlackProps) {
         }}
       >
         <img
-          src="/public/logo.png"
+          src="/logo.png"
           alt="RMUTI Logo"
           style={{ height: '90px', opacity: 1.0 }}
         />
