@@ -45,11 +45,15 @@ function App() {
 
 
         {/* Next Button */}
-        <Link
-          to="/menu"
-         className="w-full bg-white/70 rounded-full py-5 text-2xl font-medium text-[#5F320F] hover:bg-orange-500 transition-transform transform hover:scale-105 active:scale-95">
-          Next
-        </Link>
+        <div className="w-full flex justify-center">
+          <Link
+            to="/menu"
+            className="w-full bg-white/70 rounded-full py-5 text-2xl font-medium text-[#5F320F] 
+                      hover:bg-orange-500 transition-transform transform hover:scale-105 active:scale-95
+                      max-w-[400px]">
+            Next
+          </Link>
+        </div>
 
         {/* Bottom Buttons */}
         <div className="w-full flex items-center justify-center gap-4">
