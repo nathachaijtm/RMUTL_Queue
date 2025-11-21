@@ -51,7 +51,7 @@ function App() {
         </button>
 
         {/* Bottom Buttons */}
-        <div className="w-full flex items-center justify-center">
+        <div className="w-full flex items-center justify-center gap-5">
           <Link 
             to="/register"
             className="flex-1 bg-white/70 rounded-full py-4 text-2xl text-[#5F320F] 
