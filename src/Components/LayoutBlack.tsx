@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react';
+import bg from '/public/bg.webp';
+import logo from '/public/logo.png';
 
 type LayoutBlackProps = {
   children: ReactNode;
@@ -20,7 +22,7 @@ export default function LayoutBlack({ children }: LayoutBlackProps) {
         style={{
           position: 'absolute',
           inset: 0,
-          backgroundImage: 'url("/public/bg.webp")', // aghhhhhhhhhhhh
+          backgroundImage: `url(${bg})`, 
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
@@ -38,7 +40,7 @@ export default function LayoutBlack({ children }: LayoutBlackProps) {
         }}
       >
         <img
-          src="/public/logo.png"
+          src={logo}
           alt="RMUTI Logo"
           style={{ height: '90px', opacity: 1.0 }}
         />
