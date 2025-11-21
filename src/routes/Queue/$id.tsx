@@ -25,12 +25,23 @@ function QueuePage() {
           <div className="text-9xl font-extrabold text-[#000000]">{queueNumber}</div>
         </div>
 
-        <Link
-          to="/menu"
-          className="bg-[#F69522] text-white font-bold py-4 px-8 rounded-full hover:bg-orange-500 transition-transform transform hover:scale-105 active:scale-95"
-        >
-          กลับหน้าหลัก
-        </Link>
+          <div>
+          <div className="flex flex-col md:flex-row gap-4 mt-4">
+          <Link
+            to="/menu"
+            className="bg-[#F69522] text-white font-bold py-4 px-8 rounded-full hover:bg-orange-500 transition-transform transform hover:scale-105 active:scale-95"
+          >
+            กลับหน้าเลือกหัวข้อ
+          </Link>
+          
+          <Link
+            to="/"
+            className="bg-[#F69522] text-white font-bold py-4 px-8 rounded-full hover:bg-orange-500 transition-transform transform hover:scale-105 active:scale-95"
+          >
+            กลับหน้าหลัก
+          </Link>
+        </div>
+        </div>
       </div>
     </div>
   );
