@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-// ตัวแปร global เก็บเลขล่าสุด
+
 let lastQueueNumber = 0;
 
 export const Route = createFileRoute("/Queue/$id")({
