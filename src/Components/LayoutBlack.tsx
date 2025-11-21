@@ -12,7 +12,7 @@ export default function LayoutBlack({ children }: LayoutBlackProps) {
         minHeight: '100vh',
         color: '#fff',
         overflow: 'hidden',
-        backgroundColor: '#000000ff', // 🔹 สีพื้นหลังหลักกรณีรูปโปร่ง
+        backgroundColor: '#000000ff', 
       }}
     >
       {/* 🔹 ชั้นภาพพื้นหลัง (โปร่ง 50%) */}
@@ -20,25 +20,25 @@ export default function LayoutBlack({ children }: LayoutBlackProps) {
         style={{
           position: 'absolute',
           inset: 0,
-          backgroundImage: 'url("../public/bg.webp")',
+          backgroundImage: 'url("/public/bg.webp")',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          opacity: 0.6, // ✅ ความโปร่งใส 50%
+          opacity: 0.6, 
           zIndex: 0,
         }}
       />
             <div
         style={{
           position: 'absolute',
-          top: '20px',        // ระยะจากบน
-          left: '50%',         // กึ่งกลางแนวนอน
-          transform: 'translateX(-50%)', // ขยับกลับครึ่งความกว้างของโลโก้ให้ตรงกลาง
+          top: '20px',        
+          left: '50%',         
+          transform: 'translateX(-50%)', 
           zIndex: 3,
         }}
       >
         <img
-          src="../public/logo.png"
+          src="/public/logo.png"
           alt="RMUTI Logo"
           style={{ height: '90px', opacity: 1.0 }}
         />
