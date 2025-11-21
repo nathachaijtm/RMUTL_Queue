@@ -45,12 +45,11 @@ function App() {
 
 
         {/* Next Button */}
-        <div className="w-full flex justify-center">
+        <div className="flex justify-center">
           <Link
             to="/menu"
-            className="w-full bg-white/70 rounded-full py-5 text-2xl font-medium text-[#5F320F] 
-                      hover:bg-orange-500 transition-transform transform hover:scale-105 active:scale-95
-                      max-w-[400px]">
+            className="bg-white/70 rounded-full py-5 px-20 text-2xl font-medium text-[#5F320F] 
+                      hover:bg-orange-500 transition-transform transform hover:scale-105 active:scale-95">
             Next
           </Link>
         </div>
