@@ -20,7 +20,7 @@ export default function LayoutBlack({ children }: LayoutBlackProps) {
         style={{
           position: 'absolute',
           inset: 0,
-          backgroundImage: 'url("/public/bg.webp")',
+          backgroundImage: 'url("/public/bg.webp")', // aghhhhhhhhhhhh
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
