@@ -48,7 +48,7 @@ function App() {
         <div className="flex justify-center">
           <Link
             to="/menu"
-            className="w-full max-w-[800px] bg-white/70 rounded-full py-7 text-3xl font-semibold text-[#5F320F]
+            className="w-full max-w-[Mex] bg-white/70 rounded-full py-7 text-3xl font-semibold text-[#5F320F]
                       flex items-center justify-center
                       hover:bg-orange-500 transition-transform hover:scale-105 active:scale-95">
             Next
