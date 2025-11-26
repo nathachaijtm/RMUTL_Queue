@@ -196,18 +196,6 @@ function App() {
             )}
 
         </div>
-
-        <div className="flex justify-center">
-          <Link 
-            to="/register"
-            className="w-full max-w-[900px] bg-white/70 rounded-full py-4 text-2xl text-[#5F320F] 
-                      flex items-center justify-center
-                      hover:bg-orange-500 transition-transform hover:scale-105 active:scale-95"
-          >
-            ศิษย์เก่า/ไม่พบข้อมูล
-          </Link>
-        </div>
-
         {/* Bottom Buttons */}
         <div className="w-full flex items-center justify-center gap-4">
           <button className="flex-1 bg-blue-700 rounded-full py-4 text-white text-2xl
@@ -220,6 +208,19 @@ function App() {
             เข้าสู่ระบบด้วย ThaID
           </button>
         </div>
+        
+        <div className="flex justify-center">
+          <Link 
+            to="/register"
+            className="w-full max-w-[900px] bg-white/70 rounded-full py-4 text-2xl text-[#5F320F] 
+                      flex items-center justify-center
+                      hover:bg-orange-500 transition-transform hover:scale-105 active:scale-95"
+          >
+            ศิษย์เก่า/ไม่พบข้อมูล
+          </Link>
+        </div>
+
+
 
         {/* Next Button */}
         <div className="flex justify-center">
