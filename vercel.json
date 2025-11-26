@@ -5,7 +5,10 @@
   "env": {
     "npm_config_registry": "https://registry.npmjs.org",
     "npm_config_fetch_timeout": "60000",
-    "npm_config_fetch_retry_mintimeout": "10000"
+    "npm_config_fetch_retry_mintimeout": "10000",
+    "npm_config_fetch_retry_maxtimeout": "120000",
+    "PNPM_HOME": "/mnt/.pnpm",
+    "npm_config_store_dir": "/mnt/.pnpm-store"
   },
   "rewrites": [
     { "source": "/(.*)", "destination": "/" }
