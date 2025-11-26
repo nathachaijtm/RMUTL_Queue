@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from 'react'
+import { useState } from "react";
 import { StepItem } from "../Components/formfunction";
 import PersonalStep from "../Components/Form/1PersonalStep";
 import EducationStep from "../Components/Form/2EducationStep";
