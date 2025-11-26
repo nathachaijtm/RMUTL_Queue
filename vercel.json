@@ -1,8 +1,9 @@
 {
-  "installCommand": "corepack enable && corepack prepare pnpm@9 --activate && pnpm install --fetch-retries=5 --fetch-retry-mintimeout=10000 --fetch-retry-maxtimeout=120000",
-  "buildCommand": "pnpm run build",
+  "installCommand": "corepack enable && corepack prepare pnpm@9 --activate && pnpm install --ignore-scripts --fetch-retries=5 --fetch-retry-mintimeout=15000 --fetch-retry-maxtimeout=120000 || (echo \"⚠️ pnpm install failed → falling back to npm...\" && npm ci --prefer-offline)",
+  "buildCommand": "pnpm run build || (echo \"⚠️ Build with pnpm failed → trying npm build...\" && npm run build)",
   "outputDirectory": "dist",
   "env": {
+    "NODE_ENV": "production",
     "npm_config_registry": "https://registry.npmjs.org",
     "npm_config_fetch_timeout": "60000",
     "npm_config_fetch_retry_mintimeout": "10000",
