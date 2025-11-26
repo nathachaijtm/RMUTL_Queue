@@ -1,5 +1,5 @@
 {
-  "installCommand": "corepack enable && corepack prepare pnpm@9.34.0 --activate && pnpm install --fetch-retries=5 --fetch-retry-mintimeout=10000 --fetch-retry-maxtimeout=120000",
+  "installCommand": "corepack enable && corepack prepare pnpm@9 --activate && pnpm install --fetch-retries=5 --fetch-retry-mintimeout=10000 --fetch-retry-maxtimeout=120000",
   "buildCommand": "pnpm run build",
   "outputDirectory": "dist",
   "env": {
