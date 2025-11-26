@@ -1,10 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from 'react'
 import { StepItem } from "../Components/formfunction";
 import PersonalStep from "../Components/Form/1PersonalStep";
 import EducationStep from "../Components/Form/2EducationStep";
 import AddressStep from "../Components/Form/3AddressStep";
 import SummaryStep from "../Components/Form/4SummaryStep";
+import { FaUser, FaBook, FaHome, FaCheck } from 'react-icons/fa'
 
 export const Route = createFileRoute("/register" as any)({
   component: RouteComponent,
@@ -213,18 +214,22 @@ function RouteComponent() {
 
           {/* div ส่วนขั้นตอนเเต่ละstep */}
         <div className="flex items-center justify-between relative">
-          <StepItem number={1} label="ข้อมูลส่วนตัว" icon="👤"  isActive={step === 1} isCompleted={step > 1} />
+          <StepItem number={1} label={<span className="text-xl">ข้อมูลส่วนตัว</span>}  icon={<FaUser size={24} />} isActive={step === 1} isCompleted={step > 1} />
           <div className="flex-1 h-1 bg-gray-300 mx-2 mb-8"></div>
-          <StepItem number={2} label="ข้อมูลการศึกษา" icon="📚" isActive={step === 2} isCompleted={step > 2} />
+
+          <StepItem number={2} label={<span className="text-xl">ข้อมูลการศึกษา</span>} icon={<FaBook size={24} />} isActive={step === 2} isCompleted={step > 2} />
           <div className="flex-1 h-1 bg-gray-300 mx-2 mb-8"></div>
-          <StepItem number={3} label="ข้อมูลที่อยู่" icon="🏠" isActive={step === 3} isCompleted={step > 3} />
+
+          <StepItem number={3} label={<span className="text-xl">ข้อมูลที่อยู่</span>} icon={<FaHome size={24} />} isActive={step === 3} isCompleted={step > 3} />
           <div className="flex-1 h-1 bg-gray-300 mx-2 mb-8"></div>
-          <StepItem number={4} label="ยืนยันข้อมูล" icon="✔️" isActive={step === 4} isCompleted={step > 4} />
+
+          <StepItem number={4} label={<span className="text-xl">ยืนยันข้อมูล</span>} icon={<FaCheck size={24} />} isActive={step === 4} isCompleted={step > 4} />
         </div>
+
       </div>
 
 
-      {/* ส่วนcontentฟอร์มเรียกมาจาก components */}
+      {/* ส่วนcontentฟอร์มเรียกมาจาก component s */}
       <div className="bg-white rounded-2xl shadow px-6 py-8 space-y-6">
         {step === 1 && <PersonalStep form={form} errors={errors} onChange={(f:string,v:string)=>handleChange(f,v)} />}
         {step === 2 && <EducationStep form={form} errors={errors} onChange={(f:string,v:string)=>handleChange(f,v)} />}
@@ -253,7 +258,9 @@ function RouteComponent() {
       {/* ปุ่มกลับด้านนอก */}
       <div className="text-center space-y-2">
         <div className="text-white font-medium">ระบบลงทะเบียนนักศึกษาออนไลน์</div>
-        <button className="mt-2 px-6 py-2 bg-[#8D6D3E] text-white rounded-md font-medium hover:bg-[#7A5C32] transition">กลับสู่หน้าหลัก</button>
+        <Link
+          to="/"
+        className="mt-2 px-6 py-2 bg-[#8D6D3E] text-white rounded-md font-medium hover:bg-[#7A5C32] transition">กลับสู่หน้าหลัก</Link>
       </div>
     </div>
     </>

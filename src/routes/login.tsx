@@ -12,7 +12,8 @@ function App() {
       if (p && typeof p.init === "function") {
         try {
           p.init();
-        } catch (e) {
+        } 
+        catch (e) {
           // ignore init errors
         }
         return true;
@@ -36,6 +37,7 @@ function App() {
   const [highlight, setHighlight] = useState(-1);
   const boxRef = useRef<HTMLDivElement | null>(null);
   const [selected, setSelected] = useState<any | null>(null);
+  
 
 
   useEffect(() => {
@@ -57,8 +59,42 @@ function App() {
       setHighlight(-1);
       return;
     }
-    const q = query.toLowerCase();
-    const f = items.filter((it) => (it.name || "").toLowerCase().includes(q));
+
+    const q = query.toLowerCase().trim();
+    const queryWords = q.split(" ").filter(Boolean);
+
+    const f = items.filter((it) => {
+      const name = (it.name || "").toLowerCase().trim();
+      const citizenId = (it.citizenId || "").toLowerCase().trim();
+      const category = (it.category || "").toLowerCase().trim();
+
+      const nameWords = name.split(" ").filter(Boolean);
+
+      // 1️⃣ ตรวจสอบชื่อ + นามสกุล
+      let matchesName = false;
+      if (queryWords.length > 0 && nameWords.length > 0) {
+        // ต้องพิมพ์คำแรกของชื่อก่อน
+        if (nameWords[0].startsWith(queryWords[0])) {
+          matchesName = true;
+          // ตรวจสอบคำถัด ๆ
+          for (let i = 1; i < queryWords.length; i++) {
+            if (!nameWords[i] || !nameWords[i].startsWith(queryWords[i])) {
+              matchesName = false;
+              break;
+            }
+          }
+        }
+      }
+
+      // 2️⃣ ตรวจสอบเลขบัตรประชาชน / รหัสนักศึกษา
+      const matchesId = citizenId.startsWith(q);
+
+      // 3️⃣ ตรวจสอบ category
+      const matchesCategory = category.startsWith(q);
+
+      return matchesName || matchesId || matchesCategory;
+    });
+
     setFiltered(f);
     setHighlight(f.length ? 0 : -1);
   }, [query, items]);
@@ -121,70 +157,84 @@ function App() {
             เลขบัตรประชาชน/รหัสนักศึกษา/ชื่อ-สกุล
           </label>
 
-          {open && filtered.length > 0 && (
-            <div className="absolute z-50 w-full mt-2 bg-white border border-gray-200 rounded-3xl shadow-lg">
-              <div className="max-h-72 overflow-y-auto rounded-3xl" role="list">
-                {filtered.map((it, idx) => (
-                  <div
-                    key={idx}
-                    role="listitem"
-                    onMouseDown={(e) => {
-                      // use onMouseDown to select before blur
-                      e.preventDefault();
-                      setQuery(it.name);
+            {open && filtered.length > 0 && (
+              <div className="absolute z-50 w-full mt-2 bg-white border border-gray-200 rounded-3xl shadow-lg">
+                <div className="max-h-72 overflow-y-auto rounded-3xl" role="list">
+                  {filtered.map((it, idx) => (
+                    <div
+                      key={idx}
+                      role="listitem"
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        setQuery(it.name);
                         setSelected(it);
-                      setOpen(false);
-                    }}
-                    onMouseEnter={() => setHighlight(idx)}
-                    className={`flex items-center gap-4 p-3 cursor-pointer ${highlight === idx ? "bg-gray-100" : ""}`}
-                  >
-                    {it.image && (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={it.image} alt="" className="w-10 h-10 rounded-full" />
-                    )}
-                    <div className="flex flex-col">
-                      <div className="font-semibold text-black">{it.name}</div>
-                      <div className="text-sm text-gray-500">{it.category}</div>
+                        setOpen(false);
+                      }}
+                      onMouseEnter={() => setHighlight(idx)}
+                      className={`flex items-center gap-4 p-3 cursor-pointer ${highlight === idx ? "bg-gray-100" : ""}`}
+                    >
+                      {it.image && (
+                        <img src={it.image} alt="" className="w-10 h-10 rounded-full" />
+                      )}
+                      <div className="flex flex-col">
+                        <div className="font-semibold text-black">{it.name}</div>
+                        <div className="text-sm text-gray-500">{it.category}</div>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            )}
+
+            {/* ❗ ส่วนแสดงข้อความเมื่อไม่พบผลลัพธ์ */}
+            {open && query && filtered.length === 0 && (
+              <div className="absolute z-50 w-full mt-2 bg-white border border-gray-200 rounded-3xl shadow-lg">
+                <div className="p-4 text-center text-gray-500">
+                  ❌ ไม่พบข้อมูล
+                </div>
+              </div>
+            )}
+
         </div>
 
-        {/* Next Button */}
         <div className="flex justify-center">
-<Link
-  to="/menu"
-  className={`w-full max-w-[900px] rounded-full py-7 text-3xl font-semibold flex items-center justify-center
-    ${selected
-      ? "bg-white/70 text-[#5F320F] hover:bg-orange-500 transition-transform hover:scale-105 active:scale-95 cursor-pointer"
-      : "bg-gray-300 text-gray-500 cursor-not-allowed"}`}
-  onClick={(e) => {
-    if (!selected) e.preventDefault();
-  }}
->
-  Next
-</Link>
-
-        </div>
-
-        {/* Bottom Buttons */}
-        <div className="w-full flex items-center justify-center gap-4">
           <Link 
             to="/register"
-            className="flex-1 bg-white/70 rounded-full py-4 text-2xl text-[#5F320F] 
+            className="w-full max-w-[900px] bg-white/70 rounded-full py-4 text-2xl text-[#5F320F] 
                       flex items-center justify-center
                       hover:bg-orange-500 transition-transform hover:scale-105 active:scale-95"
           >
             ศิษย์เก่า/ไม่พบข้อมูล
           </Link>
+        </div>
+
+        {/* Bottom Buttons */}
+        <div className="w-full flex items-center justify-center gap-4">
+          <button className="flex-1 bg-blue-700 rounded-full py-4 text-white text-2xl
+                            hover:bg-blue-600 transition-transform hover:scale-105 active:scale-95">
+             สเเกนบัตรประชาชน
+          </button>
 
           <button className="flex-1 bg-purple-700 rounded-full py-4 text-white text-2xl
                             hover:bg-purple-600 transition-transform hover:scale-105 active:scale-95">
             เข้าสู่ระบบด้วย ThaID
           </button>
+        </div>
+
+        {/* Next Button */}
+        <div className="flex justify-center">
+          <Link
+            to="/menu"
+            className={`w-full max-w-[900px] rounded-full py-7 text-3xl font-semibold flex items-center justify-center
+              ${selected
+                ? "bg-white/70 text-[#5F320F] hover:bg-orange-500 transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+                : "bg-gray-300 text-gray-500 cursor-not-allowed"}`}
+            onClick={(e) => {
+              if (!selected) e.preventDefault();
+            }}
+          >
+            Next
+          </Link>
         </div>
 
       </div>

@@ -1,29 +1,36 @@
+import type { ReactNode } from 'react';
 
-
-
-// Component สำหรับ StepItem (แสดงขั้นตอนstep)
-export function StepItem({ number, label, icon, isActive = false, isCompleted = false }: { number: number; label: string; icon: string; isActive?: boolean; isCompleted?: boolean }) {
+export function StepItem({
+  number,
+  label,
+  icon,
+  isActive = false,
+  isCompleted = false
+}: {
+  number: number;
+  label: React.ReactNode;
+  icon: ReactNode;
+  isActive?: boolean;
+  isCompleted?: boolean;
+}) {
   return (
-    <div className="flex flex-col items-center">
-
-
+    <div className="flex flex-col items-center w-24"> {/* กำหนด width ให้เท่ากัน */}
+      {/* วงกลมเลข */}
       <div className={`flex items-center justify-center w-12 h-12 rounded-full text-lg font-bold mb-2 ${
         isActive ? 'bg-[#8D6D3E] text-white' : isCompleted ? 'bg-green-500 text-white' : 'bg-gray-300 text-gray-600'
       }`}>
         {isCompleted ? '✔' : number}
       </div>
 
-      <div className="text-center">
-        <div className="text-xs font-medium text-gray-600">
-          {icon}
-        </div>
-
-        <div className="text-xs text-gray-600 w-28 truncate">
-          {label}
-        </div>
+      {/* ไอคอน */}
+      <div className="text-gray-600 mb-1 flex justify-center">
+        {icon}
       </div>
 
-
+      {/* Label */}
+      <div className="text-xs text-gray-600 text-center truncate">
+        {label}
+      </div>
     </div>
   )
 }
