@@ -195,6 +195,17 @@ function App() {
               </div>
             )}
 
+        </div>      
+        
+          <div className="flex justify-center">
+          <Link 
+            to="/register"
+            className="w-full max-w-[900px] bg-white/70 rounded-full py-4 text-2xl text-[#5F320F] 
+                      flex items-center justify-center
+                      hover:bg-orange-500 transition-transform hover:scale-105 active:scale-95"
+          >
+            ศิษย์เก่า/ไม่พบข้อมูล
+          </Link>
         </div>
         {/* Bottom Buttons */}
         <div className="w-full flex items-center justify-center gap-4">
@@ -209,16 +220,7 @@ function App() {
           </button>
         </div>
         
-        <div className="flex justify-center">
-          <Link 
-            to="/register"
-            className="w-full max-w-[900px] bg-white/70 rounded-full py-4 text-2xl text-[#5F320F] 
-                      flex items-center justify-center
-                      hover:bg-orange-500 transition-transform hover:scale-105 active:scale-95"
-          >
-            ศิษย์เก่า/ไม่พบข้อมูล
-          </Link>
-        </div>
+
 
 
 
@@ -228,7 +230,7 @@ function App() {
             to="/menu"
             className={`w-full max-w-[900px] rounded-full py-7 text-3xl font-semibold flex items-center justify-center
               ${selected
-                ? "bg-white/70 text-[] hover:bg-orange-500 transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+                ? "bg-white/70 text-[#5F320F] hover:bg-orange-500 transition-transform hover:scale-105 active:scale-95 cursor-pointer"
                 : "bg-gray-300 text-gray-500 cursor-not-allowed"}`}
             onClick={(e) => {
               if (!selected) e.preventDefault();
