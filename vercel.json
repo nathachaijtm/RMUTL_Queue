@@ -1,5 +1,6 @@
 {
-  "buildCommand": "pnpm install && pnpm run build",
+  "installCommand": "pnpm install --fetch-retries=5 --fetch-retry-mintimeout=10000 --fetch-retry-maxtimeout=60000",
+  "buildCommand": "pnpm run build",
   "outputDirectory": "dist",
   "env": {
     "npm_config_registry": "https://registry.npmjs.org",
