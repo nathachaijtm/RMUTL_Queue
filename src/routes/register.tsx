@@ -5,7 +5,7 @@ import PersonalStep from "../Components/Form/1PersonalStep";
 import EducationStep from "../Components/Form/2EducationStep";
 import AddressStep from "../Components/Form/3AddressStep";
 import SummaryStep from "../Components/Form/4SummaryStep";
-import { FaUser, FaBook, FaHome, FaCheck } from 'react-icons/fa'
+import { FaUser, FaBook, FaHome, FaCheck } from 'react-icons/fa';
 
 export const Route = createFileRoute("/register" as any)({
   component: RouteComponent,
