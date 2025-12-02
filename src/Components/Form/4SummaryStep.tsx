@@ -12,14 +12,17 @@ export default function SummaryStep({ form }:{ form:any }){
         <div>
           <FormsummaryItem 
           label="คำนำหน้า" 
+          required={true}
           value={form.prefix} />
 
           <FormsummaryItem 
           label="ชื่อ (ไทย)" 
+          required={true}
           value={form.firstNameTh} />
 
           <FormsummaryItem 
           label="นามสกุล (ไทย)" 
+          required={true}
           value={form.lastNameTh} />
           
           <FormsummaryItem 
@@ -32,10 +35,12 @@ export default function SummaryStep({ form }:{ form:any }){
 
           <FormsummaryItem 
           label="เลขบัตรประชาชน" 
+          required={true}
           value={form.idNumber} />
 
           <FormsummaryItem 
           label="วันเกิด" 
+          required={true}
           value={form.dob} />
         </div>
 
@@ -58,10 +63,12 @@ export default function SummaryStep({ form }:{ form:any }){
 
           <FormsummaryItem 
           label="ที่อยู่" 
+          required={true}
           value={form.addressLine1} />
 
           <FormsummaryItem 
           label="เบอร์ติดต่อ" 
+          required={true}
           value={form.contactPhone} />
 
           <FormsummaryItem 

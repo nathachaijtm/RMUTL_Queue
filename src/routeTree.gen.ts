@@ -10,7 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as RegisterRouteImport } from './routes/register'
-import { Route as QueueRouteImport } from './routes/queue'
 import { Route as MenuRouteImport } from './routes/menu'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
@@ -19,11 +18,6 @@ import { Route as QueueIdRouteImport } from './routes/Queue/$id'
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const QueueRoute = QueueRouteImport.update({
-  id: '/queue',
-  path: '/queue',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MenuRoute = MenuRouteImport.update({
@@ -51,7 +45,6 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/menu': typeof MenuRoute
-  '/queue': typeof QueueRoute
   '/register': typeof RegisterRoute
   '/Queue/$id': typeof QueueIdRoute
 }
@@ -59,7 +52,6 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/menu': typeof MenuRoute
-  '/queue': typeof QueueRoute
   '/register': typeof RegisterRoute
   '/Queue/$id': typeof QueueIdRoute
 }
@@ -68,30 +60,21 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/menu': typeof MenuRoute
-  '/queue': typeof QueueRoute
   '/register': typeof RegisterRoute
   '/Queue/$id': typeof QueueIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/menu' | '/queue' | '/register' | '/Queue/$id'
+  fullPaths: '/' | '/login' | '/menu' | '/register' | '/Queue/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/menu' | '/queue' | '/register' | '/Queue/$id'
-  id:
-    | '__root__'
-    | '/'
-    | '/login'
-    | '/menu'
-    | '/queue'
-    | '/register'
-    | '/Queue/$id'
+  to: '/' | '/login' | '/menu' | '/register' | '/Queue/$id'
+  id: '__root__' | '/' | '/login' | '/menu' | '/register' | '/Queue/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
   MenuRoute: typeof MenuRoute
-  QueueRoute: typeof QueueRoute
   RegisterRoute: typeof RegisterRoute
   QueueIdRoute: typeof QueueIdRoute
 }
@@ -103,13 +86,6 @@ declare module '@tanstack/react-router' {
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof RegisterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/queue': {
-      id: '/queue'
-      path: '/queue'
-      fullPath: '/queue'
-      preLoaderRoute: typeof QueueRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/menu': {
@@ -147,7 +123,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
   MenuRoute: MenuRoute,
-  QueueRoute: QueueRoute,
   RegisterRoute: RegisterRoute,
   QueueIdRoute: QueueIdRoute,
 }

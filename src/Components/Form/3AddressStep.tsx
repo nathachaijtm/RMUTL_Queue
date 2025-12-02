@@ -9,6 +9,7 @@ export default function AddressStep({ form, errors, onChange }:{ form:any, error
       <FormInput 
       label="ที่อยู่ (สำหรับจัดส่งเอกสาร)" 
       placeholder="กรอกที่อยู่" 
+      required={true}
       value={form.addressLine1} 
       onChange={(v)=>onChange('addressLine1', v)} 
       error={errors.addressLine1} />
@@ -26,6 +27,7 @@ export default function AddressStep({ form, errors, onChange }:{ form:any, error
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
         <FormInput 
         label="เบอร์ติดต่อ" 
+        required={true}
         placeholder="กรอกเบอร์โทร" 
         value={form.contactPhone} 
         onChange={(v)=>onChange('contactPhone', v)} 

@@ -27,12 +27,6 @@ function QueuePage() {
 
           <div>
           <div className="flex flex-col md:flex-row gap-4 mt-4">
-          <Link
-            to="/menu"
-            className="bg-[#F69522] text-white font-bold py-4 px-8 rounded-full hover:bg-orange-500 transition-transform transform hover:scale-105 active:scale-95"
-          >
-            กลับหน้าเลือกหัวข้อ
-          </Link>
           
           <Link
             to="/"

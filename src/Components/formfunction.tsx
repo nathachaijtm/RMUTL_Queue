@@ -36,13 +36,14 @@ export function StepItem({
 }
 
 // Component สำหรับแสดงข้อมูลสรุป
-export function FormsummaryItem({ label, value }: { label: string; value?: string }) {
+export function FormsummaryItem({ label, value, required = false }: { label: string; value?: string; required?: boolean }) {
   return (
     <div className="mb-2">
 
 
       <p className="text-gray-600 text-sm">
         {label}
+        {required && <span className="text-red-500 ml-1">*</span>}
       </p>
 
       <div className="w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-100 text-gray-800">
@@ -57,13 +58,14 @@ export function FormsummaryItem({ label, value }: { label: string; value?: strin
 
 
 // Component สำหรับ Input (ช่องinput)
-export function FormInput({ label, placeholder, type = "text", value, onChange, error }: { label: string; placeholder?: string; type?: string; value?: string; onChange?: (v: string) => void; error?: string }) {
+export function FormInput({ label, placeholder, type = "text", value, onChange, error, required = false }: { label: string; placeholder?: string; type?: string; value?: string; onChange?: (v: string) => void; error?: string; required?: boolean }) {
   return (
     <div>
 
 
       <label className="block text-gray-600 font-medium mb-1">
         {label}
+        {required && <span className="text-red-500 ml-1">*</span>}
       </label>
 
       <input
@@ -84,10 +86,13 @@ export function FormInput({ label, placeholder, type = "text", value, onChange, 
 
 
 // Component สำหรับ Select (ช่องselect)
-export function FormSelect({ label, options, value, onChange, error }: { label: string; options: string[]; value?: string; onChange?: (v: string) => void; error?: string }) {
+export function FormSelect({ label, options, value, onChange, error, required = false }: { label: string; options: string[]; value?: string; onChange?: (v: string) => void; error?: string; required?: boolean }) {
   return (
     <div>
-      <label className="block text-gray-600 font-medium mb-1">{label}</label>
+      <label className="block text-gray-600 font-medium mb-1">
+        {label}
+        {required && <span className="text-red-500 ml-1">*</span>}
+      </label>
       <select value={value} onChange={(e) => onChange?.(e.target.value)} className="w-full p-2 border border-gray-400 rounded-md text-gray-600 focus:ring-2 focus:ring-orange-400 focus:outline-none">
         <option value="">-- กรุณาเลือก --</option>
         {options.map((opt) => (

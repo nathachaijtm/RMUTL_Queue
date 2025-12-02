@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { StepItem } from "../Components/formfunction";
 import PersonalStep from "../Components/Form/1PersonalStep";
@@ -255,13 +255,6 @@ function RouteComponent() {
       </div>
 
 
-      {/* ปุ่มกลับด้านนอก */}
-      <div className="text-center space-y-2">
-        <div className="text-white font-medium">ระบบลงทะเบียนนักศึกษาออนไลน์</div>
-        <Link
-          to="/"
-        className="mt-2 px-6 py-2 bg-[#8D6D3E] text-white rounded-md font-medium hover:bg-[#7A5C32] transition">กลับสู่หน้าหลัก</Link>
-      </div>
     </div>
     </>
   )
