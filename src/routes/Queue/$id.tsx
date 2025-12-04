@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import LayoutBlack from "@/Components/LayoutBlack";
 
 
 let lastQueueNumber = 0;
@@ -18,6 +19,7 @@ function QueuePage() {
   }, []);
 
   return (
+    <LayoutBlack>
     <div className="h-[95vh] flex items-center justify-center">
       <div className="w-[800px] max-w-[95%] p-12 rounded-4xl flex flex-col items-center gap-8">
         <h1 className="text-4xl font-bold text-center">คิวของคุณ</h1>
@@ -38,5 +40,6 @@ function QueuePage() {
         </div>
       </div>
     </div>
+    </LayoutBlack>  
   );
 }
