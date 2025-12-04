@@ -6,6 +6,7 @@ import EducationStep from "../Components/Form/2EducationStep";
 import AddressStep from "../Components/Form/3AddressStep";
 import SummaryStep from "../Components/Form/4SummaryStep";
 import { FaUser, FaBook, FaHome, FaCheck } from 'react-icons/fa';
+import LayoutBlack from "@/Components/LayoutBlack";
 
 export const Route = createFileRoute("/register" as any)({
   component: RouteComponent,
@@ -133,6 +134,7 @@ function RouteComponent() {
 
 
   return (
+    <LayoutBlack>
     <>
 
 {/* popup */}
@@ -257,5 +259,6 @@ function RouteComponent() {
 
     </div>
     </>
+    </LayoutBlack>
   )
 }

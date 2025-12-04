@@ -1,5 +1,6 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
+import LayoutBlackMenu from "../Components/LayoutBlackMenu";
 
 export const Route = createFileRoute("/menu")({
   component: RouteComponent,
@@ -45,39 +46,41 @@ function RouteComponent() {
   };
 
   return (
-    <div className="h-[95vh] flex items-center justify-center">
-      <div className="flex flex-col items-center gap-6 w-full max-w-[1200px] p-10 rounded-4xl">
-        <h1 className="text-5xl text-center font-bold mb-4">ต้องการติดต่อเรื่องอะไร</h1>
+    <LayoutBlackMenu>
+      <div className="h-[95vh] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-6 w-full max-w-[1200px] p-10 rounded-4xl">
+          <h1 className="text-5xl text-center font-bold mb-4">ต้องการติดต่อเรื่องอะไร</h1>
 
-        {/* แสดงข้อมูลผู้ใช้ */}
-        {userInfo && (
-          <div className="bg-">
-            <h2 className="text-xl font-bold  mb-2">ข้อมูลผู้ใช้</h2>
-            <div className="space-y-1 text-sm ">
-              <div><span className="font-semibold">ชื่อ:</span> {userInfo.name || "-"}</div>
-              <div><span className="font-semibold">เลขบัตรประชาชน:</span> {userInfo.idNumber || userInfo.citizenId || "-"}</div>
-              <div><span className="font-semibold">รหัสนักศึกษา:</span> {userInfo.studentId || "-"}</div>
+          {/* แสดงข้อมูลผู้ใช้ */}
+          {userInfo && (
+            <div className="bg-[#FFF8E6] border-2 border-[#F69522] rounded-xl p-4 w-full">
+              <h2 className="text-xl font-bold text-[#5F320F] mb-2">ข้อมูลผู้ใช้</h2>
+              <div className="space-y-1 text-sm text-[#5F320F]">
+                <div><span className="font-semibold">ชื่อ:</span> {userInfo.name || "-"}</div>
+                <div><span className="font-semibold">เลขบัตรประชาชน:</span> {userInfo.idNumber || userInfo.citizenId || "-"}</div>
+                <div><span className="font-semibold">รหัสนักศึกษา:</span> {userInfo.studentId || "-"}</div>
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        <div className="rounded-xl p-6 grid grid-cols-3 gap-4 w-full">
-          {topics.map((topic, index) => (
-            <button
-              key={index}
-              onClick={() => createQueueAndNavigate(topic)}
-              className="bg-white text-gray-700 border rounded-full cursor-pointer py-10 hover:bg-[#F69522] hover:text-white transition-transform transform hover:scale-105 active:scale-95 font-extrabold text-3xl"
-            >
-              {topic}
-            </button>
-          ))}
+          <div className="rounded-xl p-6 grid grid-cols-3 gap-4 w-full">
+            {topics.map((topic, index) => (
+              <button
+                key={index}
+                onClick={() => createQueueAndNavigate(topic)}
+                className="bg-white text-gray-700 border rounded-full cursor-pointer py-10 hover:bg-[#F69522] hover:text-white transition-transform transform hover:scale-105 active:scale-95 font-extrabold text-3xl"
+              >
+                {topic}
+              </button>
+            ))}
+          </div>
+              <Link
+                to="/"
+                className="bg-[#F69522] text-white font-bold py-6 px-10 rounded-full hover:bg-orange-500 transition-transform transform hover:scale-105 active:scale-95 text-xl">
+                กลับหน้าหลัก
+              </Link>
         </div>
-            <Link
-              to="/"
-              className="bg-[#F69522] text-white font-bold py-6 px-10 rounded-full hover:bg-orange-500 transition-transform transform hover:scale-105 active:scale-95 text-xl">
-              กลับหน้าหลัก
-            </Link>
       </div>
-    </div>
+    </LayoutBlackMenu>
   );
 }
