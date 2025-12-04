@@ -21,8 +21,8 @@ function QueuePage() {
   return (
     <LayoutBlack>
     <div className="h-[95vh] flex items-center justify-center">
-      <div className="w-[800px] max-w-[95%] p-12 rounded-4xl flex flex-col items-center gap-8">
-        <h1 className="text-4xl font-bold text-center">คิวของคุณ</h1>
+      <div className="w-[800px] max-w-[95%] p-12 rounded-9xl flex flex-col items-center gap-8">
+        <h1 className="text-8xl font-bold text-center">คิวของคุณ</h1>
         <div className="bg-gray-100 w-full max-w-[700px] p-6 rounded-2xl flex flex-col items-center gap-4">
           <div className="text-9xl font-extrabold text-[#000000]">{queueNumber}</div>
         </div>

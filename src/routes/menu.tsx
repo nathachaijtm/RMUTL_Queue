@@ -54,8 +54,8 @@ function RouteComponent() {
           {/* แสดงข้อมูลผู้ใช้ */}
           {userInfo && (
             <div className="bg-[#FFF8E6] border-2 border-[#F69522] rounded-xl p-4 w-full">
-              <h2 className="text-xl font-bold text-[#5F320F] mb-2">ข้อมูลผู้ใช้</h2>
-              <div className="space-y-1 text-sm text-[#5F320F]">
+              <h2 className="text-2xl font-bold text-[#5F320F] mb-2">ข้อมูลผู้ใช้</h2>
+              <div className="space-y-1 text-base text-[#5F320F]">
                 <div><span className="font-semibold">ชื่อ:</span> {userInfo.name || "-"}</div>
                 <div><span className="font-semibold">เลขบัตรประชาชน:</span> {userInfo.idNumber || userInfo.citizenId || "-"}</div>
                 <div><span className="font-semibold">รหัสนักศึกษา:</span> {userInfo.studentId || "-"}</div>
