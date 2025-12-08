@@ -86,14 +86,14 @@ export function FormInput({ label, placeholder, type = "text", value, onChange, 
 
 
 // Component สำหรับ Select (ช่องselect)
-export function FormSelect({ label, options, value, onChange, error, required = false }: { label: string; options: string[]; value?: string; onChange?: (v: string) => void; error?: string; required?: boolean }) {
+export function FormSelect({ label, options, value, onChange, error, required = false, className = '' }: { label: string; options: string[]; value?: string; onChange?: (v: string) => void; error?: string; required?: boolean; className?: string }) {
   return (
     <div>
       <label className="block text-gray-600 font-medium mb-1">
         {label}
         {required && <span className="text-red-500 ml-1">*</span>}
       </label>
-      <select value={value} onChange={(e) => onChange?.(e.target.value)} className="w-full p-2 border border-gray-400 rounded-md text-gray-600 focus:ring-2 focus:ring-orange-400 focus:outline-none">
+      <select value={value} onChange={(e) => onChange?.(e.target.value)} className={`w-full p-2 border border-gray-400 rounded-md text-gray-600 focus:ring-2 focus:ring-orange-400 focus:outline-none ${className}`}>
         <option value="">-- กรุณาเลือก --</option>
         {options.map((opt) => (
           <option key={opt} value={opt}>{opt}</option>

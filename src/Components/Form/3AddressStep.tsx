@@ -1,14 +1,14 @@
 import { FormInput } from '../formfunction'
 
 //ส่วนของฟอร์มที่อยู่
-export default function AddressStep({ form, errors, onChange }:{ form:any, errors:any, onChange:(field:string,value:string)=>void }){
+export default function AddressStep({ form, errors, onChange, formatPhoneNumber }:{ form:any, errors:any, onChange:(field:string,value:string)=>void, formatPhoneNumber:(s:string)=>string }){
   return (
     <div>
 
 
       <FormInput 
       label="ที่อยู่ (สำหรับจัดส่งเอกสาร)" 
-      placeholder="กรอกที่อยู่" 
+      placeholder="บ้านเลขที่  11/1 หมู่บ้าน ซอย ถนน ตำบล/แขวง อำเภอ/เขต จังหวัด รหัสไปรษณีย์" 
       required={true}
       value={form.addressLine1} 
       onChange={(v)=>onChange('addressLine1', v)} 
@@ -17,7 +17,7 @@ export default function AddressStep({ form, errors, onChange }:{ form:any, error
       <div className="mt-2">
         <FormInput 
         label="ที่อยู่ (เพิ่มเติม)" 
-        placeholder="บรรทัดที่ 2" 
+        placeholder="รายละเอียดที่อยู่เพิ่มเติม (ถ้ามี)" 
         value={form.addressLine2} 
         onChange={(v)=>onChange('addressLine2', v)} 
         error={errors.addressLine2}/>
@@ -29,8 +29,11 @@ export default function AddressStep({ form, errors, onChange }:{ form:any, error
         label="เบอร์ติดต่อ" 
         required={true}
         placeholder="กรอกเบอร์โทร" 
-        value={form.contactPhone} 
-        onChange={(v)=>onChange('contactPhone', v)} 
+        value={formatPhoneNumber(form.contactPhone)}
+        onChange={(v)=>{
+          const numericValue = v.replace(/\D/g, "").slice(0, 10);
+          onChange('contactPhone', numericValue);
+        }}
         error={errors.contactPhone} />
 
         <FormInput 

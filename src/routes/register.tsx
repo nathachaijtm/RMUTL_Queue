@@ -8,6 +8,24 @@ import SummaryStep from "../Components/Form/4SummaryStep";
 import { FaUser, FaBook, FaHome, FaCheck } from 'react-icons/fa';
 import LayoutBlack from "@/Components/LayoutBlack";
 
+// ฟังก์ชันสำหรับจัดรูปแบบเลขบัตรประชาชน
+const formatIdNumber = (numeric: string): string => {
+  if (numeric.length === 0) return '';
+  if (numeric.length <= 1) return numeric;
+  if (numeric.length <= 5) return numeric.slice(0, 1) + '-' + numeric.slice(1);
+  if (numeric.length <= 10) return numeric.slice(0, 1) + '-' + numeric.slice(1, 5) + '-' + numeric.slice(5);
+  if (numeric.length <= 12) return numeric.slice(0, 1) + '-' + numeric.slice(1, 5) + '-' + numeric.slice(5, 10) + '-' + numeric.slice(10);
+  return numeric.slice(0, 1) + '-' + numeric.slice(1, 5) + '-' + numeric.slice(5, 10) + '-' + numeric.slice(10, 12) + '-' + numeric.slice(12);
+};
+
+// ฟังก์ชันสำหรับจัดรูปแบบเลขโทรศัพท์
+const formatPhoneNumber = (numeric: string): string => {
+  if (numeric.length === 0) return '';
+  if (numeric.length <= 3) return numeric;
+  if (numeric.length <= 6) return numeric.slice(0, 3) + '-' + numeric.slice(3);
+  return numeric.slice(0, 3) + '-' + numeric.slice(3, 6) + '-' + numeric.slice(6, 10);
+};
+
 export const Route = createFileRoute("/register" as any)({
   component: RouteComponent,
 });
@@ -62,27 +80,23 @@ function RouteComponent() {
     if (s === 1) {
       if (!form.prefix) newErrors.prefix = 'กรุณาเลือกคำนำหน้า'
       if (!form.firstNameTh) newErrors.firstNameTh = 'กรุณากรอกชื่อ'
-      if (!form.lastNameTh) newErrors.lastNameTh = 'กรุณากรอกนามสกุล'
-      if (!form.firstNameEn) newErrors.firstNameEn = 'กรุณากรอกชื่อ'
-      if (!form.lastNameEn) newErrors.lastNameEn = 'กรุณากรอกนามสกุล'
+      // นามสกุล (ทั้งไทยและอังกฤษ) ไม่บังคับ
       if (!form.idNumber || form.idNumber.length !== 13) newErrors.idNumber = 'กรุณากรอกเลขบัตรประชาชนครบ 13 ตัว'
       if (!form.dob) newErrors.dob = 'กรุณาเลือกวันเดือนปีเกิด'
     }
 
     // เช็ค 2education
+    // ทุกช่องในหน้าการศึกษาเป็นอัฟชันแล้ว ไม่ต้องตรวจสอบใดๆ
     if (s === 2) {
-      if (!form.program) newErrors.program = 'กรุณากรอกหลักสูตร/สาขา'
-      if (!form.gradYear) newErrors.gradYear = 'กรุณากรอกปีที่จบ'
-      if (!form.campus) newErrors.campus = 'กรุณาเลือกเขตพื้นที่'
-      if (!form.studentId) newErrors.studentId = 'กรุณากรอกรหัสนักศึกษา'
+      // ไม่มีการตรวจสอบ - สามารถข้ามได้เลย
     }
 
     // เช็ค 3address
     if (s === 3) {
-      if (!form.addressLine1) newErrors.addressLine1 = 'กรุณากรอกที่อยู่'
-      if (!form.addressLine2) newErrors.addressLine2 = 'กรุณากรอกที่อยู่เพิ่มเติม'
+      if (!form.addressLine1) newErrors.addressLine1 = 'กรุณากรอก บ้านเลขที่  11/1 หมู่บ้าน ซอย ถนน ตำบล/แขวง อำเภอ/เขต จังหวัด รหัสไปรษณีย์'
+      // ที่อยู่ (เพิ่มเติม) ไม่จำเป็น
       if (!form.contactPhone) newErrors.contactPhone = 'กรุณากรอกเบอร์ติดต่อ'
-      if (!form.email) newErrors.email = 'กรุณากรอกอีเมล์ติดต่อ'
+      // อีเมล์ติดต่อ ไม่จำเป็น
     }
 
 
@@ -233,10 +247,10 @@ function RouteComponent() {
 
       {/* ส่วนcontentฟอร์มเรียกมาจาก component s */}
       <div className="bg-white rounded-2xl shadow px-6 py-8 space-y-6">
-        {step === 1 && <PersonalStep form={form} errors={errors} onChange={(f:string,v:string)=>handleChange(f,v)} />}
+        {step === 1 && <PersonalStep form={form} errors={errors} onChange={(f:string,v:string)=>handleChange(f,v)} formatIdNumber={formatIdNumber} />}
         {step === 2 && <EducationStep form={form} errors={errors} onChange={(f:string,v:string)=>handleChange(f,v)} />}
-        {step === 3 && <AddressStep form={form} errors={errors} onChange={(f:string,v:string)=>handleChange(f,v)} />}
-        {step === 4 && <SummaryStep form={form} />}
+        {step === 3 && <AddressStep form={form} errors={errors} onChange={(f:string,v:string)=>handleChange(f,v)} formatPhoneNumber={formatPhoneNumber} />}
+        {step === 4 && <SummaryStep form={form} formatIdNumber={formatIdNumber} formatPhoneNumber={formatPhoneNumber} />}
 
 
       {/* ส่วนปุ่มถัดไป, ย้อนกลับ, ยืนยัน */}
