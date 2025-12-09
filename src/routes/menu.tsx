@@ -1,86 +1,178 @@
-import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
-import LayoutBlackMenu from "../Components/LayoutBlackMenu";
 
+// ---------------------------------------------------------
+// Type
+// ---------------------------------------------------------
+type QueueTopic = {
+  queue_id: string;
+  queue_name: string;
+};
+
+// ---------------------------------------------------------
+// Fetch API
+// ---------------------------------------------------------
+function useQueueTopics() {
+  const { data, isLoading } = useQuery<QueueTopic[]>({
+    queryKey: ["topics"],
+    queryFn: async () => {
+      const res = await fetch(
+        "https://queue.devregis.com/api/v1/getQueueTopic"
+      );
+      const json = await res.json();
+      return json.data?.items || [];
+    },
+
+    staleTime: Infinity,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    retry: false,
+  });
+
+  return {
+    topics: data || [],
+    loading: isLoading,
+  };
+}
+
+// ---------------------------------------------------------
+// Route
+// ---------------------------------------------------------
 export const Route = createFileRoute("/menu")({
   component: RouteComponent,
 });
 
+// ---------------------------------------------------------
+// Component
+// ---------------------------------------------------------
 function RouteComponent() {
   const navigate = useNavigate();
+  const { topics, loading } = useQueueTopics();
+  const [isCreating, setCreating] = useState(false);
   const [userInfo, setUserInfo] = useState<any>(null);
+
+  // -------------------------------------------------------
+  // Create Queue + Navigate
+  // -------------------------------------------------------
+  const createQueueAndNavigate = async (topic: QueueTopic) => {
+    if (isCreating) return;
+    setCreating(true);
+
+    const user = JSON.parse(localStorage.getItem("queue_user") || "{}");
+
+    localStorage.setItem(
+      "queue_payload",
+      JSON.stringify({
+        std_id_pri: user.std_id_pri,
+        queue_id: topic.queue_id,
+      })
+    );
+
+    // save history
+    const id = `${Date.now()}${Math.floor(Math.random() * 900 + 100)}`;
+    const all = JSON.parse(localStorage.getItem("rm_queue") || "[]");
+
+    all.push({
+      id,
+      topic,
+      createdAt: new Date().toISOString(),
+    });
+
+    localStorage.setItem("rm_queue", JSON.stringify(all));
+
+    navigate({ to: "/queue" });
+    setCreating(false);
+  };
+
+  // -------------------------------------------------------
+  // Split into rows
+  // -------------------------------------------------------
+  const rows = [];
+  for (let i = 0; i < topics.length; i += 2) {
+    rows.push(topics.slice(i, i + 2));
+  }
 
   useEffect(() => {
     try {
       const stored = sessionStorage.getItem("selected_user");
-      if (stored) {
-        setUserInfo(JSON.parse(stored));
-      }
+      if (stored) setUserInfo(JSON.parse(stored));
     } catch (e) {
-      // ignore
+      console.error(e);
     }
   }, []);
 
-  const topics = [
-    "ข้อความเรื่องที่ 1",
-    "ข้อความเรื่องที่ 2",
-    "ข้อความเรื่องที่ 3",
-    "ข้อความเรื่องที่ 4",
-    "ข้อความเรื่องที่ 5",
-    "ข้อความเรื่องที่ 6",
-    "ข้อความเรื่องที่ 7",
-    "ข้อความเรื่องที่ 8",
-    "ข้อความเรื่องที่ 9",
-  ];
-
-  const createQueueAndNavigate = (topic: string) => {
-    const id = `${Date.now()}${Math.floor(Math.random() * 900 + 100)}`;
-    try {
-      const all = JSON.parse(localStorage.getItem("rm_queue") || "[]");
-      all.push({ id, topic, createdAt: new Date().toISOString() });
-      localStorage.setItem("rm_queue", JSON.stringify(all));
-    } catch {
-      // ignore
-    }
-    navigate({ to: "/Queue/$id", params: { id } });
-  };
-
   return (
-    <LayoutBlackMenu>
-      <div className="h-[95vh] flex items-center justify-center">
-        <div className="flex flex-col items-center gap-6 w-full max-w-[1200px] p-10 rounded-4xl">
-          <h1 className="text-5xl text-center font-bold mb-4">ต้องการติดต่อเรื่องอะไร</h1>
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="w-full max-w-3xl px-6 py-10">
+        {/* Title */}
+        <h1 className="text-4xl font-bold text-center mb-8 pt-10">
+          ต้องการติดต่อเรื่องอะไร
+        </h1>
 
-          {/* แสดงข้อมูลผู้ใช้ */}
-          {userInfo && (
-            <div className="bg-[#FFF8E6] border-2 border-[#F69522] rounded-xl p-4 w-full">
-              <h2 className="text-2xl font-bold text-[#5F320F] mb-2">ข้อมูลผู้ใช้</h2>
-              <div className="space-y-1 text-base text-[#5F320F]">
-                <div><span className="font-semibold">ชื่อ:</span> {userInfo.name || "-"}</div>
-                <div><span className="font-semibold">เลขบัตรประชาชน:</span> {userInfo.idNumber || userInfo.citizenId || "-"}</div>
-                <div><span className="font-semibold">รหัสนักศึกษา:</span> {userInfo.studentId || "-"}</div>
+        {/* User Info Card */}
+        {userInfo && (
+          <div className="bg-[#FFF8E6] border-2 border-[#F69522] rounded-xl p-3 shadow-sm mb-8">
+            <h2 className="text-2xl font-bold text-[#5F320F] mb-4">
+              ข้อมูลผู้ใช้
+            </h2>
+
+            <div className="grid grid-cols-1 sm:grid-cols-1 gap-1  text-[#5F320F]">
+              <div>
+                <span className="font-semibold">ชื่อ:</span>{" "}
+                {userInfo.std_name_th}
+              </div>
+              <div>
+                <span className="font-semibold">เลขบัตรประชาชน:</span>{" "}
+                {userInfo.std_id_pri}
+              </div>
+              <div>
+                <span className="font-semibold">รหัสนักศึกษา:</span>{" "}
+                {userInfo.std_id}
               </div>
             </div>
-          )}
+          </div>
+        )}
 
-          <div className="rounded-xl p-6 grid grid-cols-3 gap-4 w-full">
-            {topics.map((topic, index) => (
+        {/* Loading */}
+        {loading && (
+          <div className="text-center text-xl py-6">⏳ กำลังโหลดหัวข้อ...</div>
+        )}
+
+        {/* Topics Grid */}
+        {!loading && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+            {topics.map((topic) => (
               <button
-                key={index}
+                key={topic.queue_id}
                 onClick={() => createQueueAndNavigate(topic)}
-                className="bg-white text-gray-700 border rounded-full cursor-pointer py-10 hover:bg-[#F69522] hover:text-white transition-transform transform hover:scale-105 active:scale-95 font-extrabold text-3xl"
+                disabled={isCreating}
+                className="
+          bg-white rounded-full py-8 px-4 shadow-sm 
+          text-xl font-semibold text-gray-700
+          hover:bg-[#F69522] hover:text-white hover:scale-[1.03]
+          active:scale-95 transition-all
+        "
               >
-                {topic}
+                {topic.queue_name}
               </button>
             ))}
           </div>
-              <Link
-                to="/"
-                className="bg-[#F69522] text-white font-bold py-6 px-10 rounded-full hover:bg-orange-500 transition-transform transform hover:scale-105 active:scale-95 text-xl">
-                กลับหน้าหลัก
-              </Link>
+        )}
+
+        {/* Back Button Center */}
+        <div className="flex justify-center mt-4">
+          <Link
+            to="/"
+            className="bg-[#F69522] text-white font-bold py-4 px-8 rounded-full hover:bg-orange-500 transition-transform transform hover:scale-105 active:scale-95"
+          >
+            กลับหน้าหลัก
+          </Link>
         </div>
       </div>
-    </LayoutBlackMenu>
+    </div>
   );
 }
+
+export default RouteComponent;
