@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ScanRouteImport } from './routes/scan'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as QueueRouteImport } from './routes/queue'
 import { Route as MenuRouteImport } from './routes/menu'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
 
+const ScanRoute = ScanRouteImport.update({
+  id: '/scan',
+  path: '/scan',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/menu': typeof MenuRoute
   '/queue': typeof QueueRoute
   '/register': typeof RegisterRoute
+  '/scan': typeof ScanRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/menu': typeof MenuRoute
   '/queue': typeof QueueRoute
   '/register': typeof RegisterRoute
+  '/scan': typeof ScanRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,14 @@ export interface FileRoutesById {
   '/menu': typeof MenuRoute
   '/queue': typeof QueueRoute
   '/register': typeof RegisterRoute
+  '/scan': typeof ScanRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/menu' | '/queue' | '/register'
+  fullPaths: '/' | '/login' | '/menu' | '/queue' | '/register' | '/scan'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/menu' | '/queue' | '/register'
-  id: '__root__' | '/' | '/login' | '/menu' | '/queue' | '/register'
+  to: '/' | '/login' | '/menu' | '/queue' | '/register' | '/scan'
+  id: '__root__' | '/' | '/login' | '/menu' | '/queue' | '/register' | '/scan'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,10 +86,18 @@ export interface RootRouteChildren {
   MenuRoute: typeof MenuRoute
   QueueRoute: typeof QueueRoute
   RegisterRoute: typeof RegisterRoute
+  ScanRoute: typeof ScanRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/scan': {
+      id: '/scan'
+      path: '/scan'
+      fullPath: '/scan'
+      preLoaderRoute: typeof ScanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/register': {
       id: '/register'
       path: '/register'
@@ -125,6 +142,7 @@ const rootRouteChildren: RootRouteChildren = {
   MenuRoute: MenuRoute,
   QueueRoute: QueueRoute,
   RegisterRoute: RegisterRoute,
+  ScanRoute: ScanRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

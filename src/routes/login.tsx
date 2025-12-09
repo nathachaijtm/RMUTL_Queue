@@ -186,8 +186,9 @@ function App() {
         {/* Action Buttons */}
         <div className="w-full flex items-center justify-center gap-4">
           <button className="flex-1 bg-blue-700 rounded-full py-4 text-white text-2xl hover:bg-blue-600 transition-transform hover:scale-105 active:scale-95">
-            สแกนบัตรประชาชน
+            สเเกนบัตรประชาชน
           </button>
+
           <button className="flex-1 bg-purple-700 rounded-full py-4 text-white text-2xl hover:bg-purple-600 transition-transform hover:scale-105 active:scale-95">
             เข้าสู่ระบบด้วย ThaID
           </button>

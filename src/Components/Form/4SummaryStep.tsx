@@ -11,16 +11,50 @@ export default function SummaryStep({ form, formatIdNumber, formatPhoneNumber }:
       
       {/* กลุ่มข้อมูลส่วนบุคคล */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-800 mb-2">ข้อมูลส่วนตัว</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+{/* ข้อมูลส่วนตัว */}
+        <h3 className="text-lg font-semibold mb-3 text-gray-900">ข้อมูลส่วนตัว</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="md:col-span-2">
+            <FormsummaryItem 
+              label="คำนำหน้า" 
+              required 
+              value={form.prefix} 
+            />
+          </div>
+          <FormsummaryItem 
+            label="ชื่อ (ไทย)" 
+            required 
+            value={form.firstNameTh} 
+          />
+          <FormsummaryItem 
+            label="นามสกุล (ไทย)" 
+            required 
+            value={form.lastNameTh} 
+          />
 
-          <FormsummaryItem label="คำนำหน้า" required value={form.prefix} />
-          <FormsummaryItem label="ชื่อ (ไทย)" required value={form.firstNameTh} />
-          <FormsummaryItem label="นามสกุล (ไทย)" required value={form.lastNameTh} />
-          <FormsummaryItem label="ชื่อ (อังกฤษ)" required value={form.firstNameEn} />
-          <FormsummaryItem label="นามสกุล (อังกฤษ)" required value={form.lastNameEn} />
-          <FormsummaryItem label="เลขบัตรประชาชน" required value={formatIdNumber(form.idNumber)} />
-          <FormsummaryItem label="วันเกิด" required value={form.dob} />
+          {/* ชื่อ + นามสกุลอังกฤษ */}
+          <FormsummaryItem 
+            label="ชื่อ (อังกฤษ)" 
+            required 
+            value={form.firstNameEn} 
+          />
+          <FormsummaryItem 
+            label="นามสกุล (อังกฤษ)" 
+            required 
+            value={form.lastNameEn} 
+          />
+
+          {/* ขยายให้เลขบัตร & วันเกิดอยู่แถวเดียวกัน */}
+          <FormsummaryItem 
+            label="เลขบัตรประชาชน" 
+            required 
+            value={formatIdNumber(form.idNumber)} 
+          />
+          <FormsummaryItem 
+            label="วันเกิด" 
+            required 
+            value={form.dob} 
+          />
 
         </div>
       </div>
