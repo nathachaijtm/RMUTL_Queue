@@ -3,15 +3,24 @@ import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 
 // ---------------------------------------------------------
-// Type
+// menu Route
+// ---------------------------------------------------------
+export const Route = createFileRoute("/menu")({
+  component: RouteComponent,
+});
+
+
+// ---------------------------------------------------------
+// ID-TOPIC ID-NAME Type
 // ---------------------------------------------------------
 type QueueTopic = {
   queue_id: string;
   queue_name: string;
 };
 
+
 // ---------------------------------------------------------
-// Fetch API
+// Hook: ดึงหัวข้อบริการจาก API
 // ---------------------------------------------------------
 function useQueueTopics() {
   const { data, isLoading } = useQuery<QueueTopic[]>({
@@ -37,21 +46,17 @@ function useQueueTopics() {
   };
 }
 
-// ---------------------------------------------------------
-// Route
-// ---------------------------------------------------------
-export const Route = createFileRoute("/menu")({
-  component: RouteComponent,
-});
 
 // ---------------------------------------------------------
-// Component
+// app Component
 // ---------------------------------------------------------
 function RouteComponent() {
   const navigate = useNavigate();
   const { topics, loading } = useQueueTopics();
   const [isCreating, setCreating] = useState(false);
   const [userInfo, setUserInfo] = useState<any>(null);
+
+
 
   // -------------------------------------------------------
   // Create Queue + Navigate
@@ -70,7 +75,6 @@ function RouteComponent() {
       })
     );
 
-    // save history
     const id = `${Date.now()}${Math.floor(Math.random() * 900 + 100)}`;
     const all = JSON.parse(localStorage.getItem("rm_queue") || "[]");
 
@@ -86,13 +90,7 @@ function RouteComponent() {
     setCreating(false);
   };
 
-  // -------------------------------------------------------
-  // Split into rows
-  // -------------------------------------------------------
-  const rows = [];
-  for (let i = 0; i < topics.length; i += 2) {
-    rows.push(topics.slice(i, i + 2));
-  }
+
 
   useEffect(() => {
     try {
@@ -103,15 +101,18 @@ function RouteComponent() {
     }
   }, []);
 
+
+  // -------------------------------------------------------
+  // ส่วนเเสดงผล
+  // -------------------------------------------------------
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="w-full max-w-3xl px-6 py-10">
-        {/* Title */}
         <h1 className="text-4xl font-bold text-center mb-8 pt-10">
           ต้องการติดต่อเรื่องอะไร
         </h1>
 
-        {/* User Info Card */}
+        {/* ส่วนเเสดงข้อมูลผู้ใช้*/}
         {userInfo && (
           <div className="bg-[#FFF8E6] border-2 border-[#F69522] rounded-xl p-3 shadow-sm mb-8">
             <h2 className="text-2xl font-bold text-[#5F320F] mb-4">
@@ -140,7 +141,7 @@ function RouteComponent() {
           <div className="text-center text-xl py-6">⏳ กำลังโหลดหัวข้อ...</div>
         )}
 
-        {/* Topics Grid */}
+        {/* ปุ่มเลือกบริการ  1-6 */}
         {!loading && (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
             {topics.map((topic) => (
@@ -161,7 +162,7 @@ function RouteComponent() {
           </div>
         )}
 
-        {/* Back Button Center */}
+        {/* ปุ่มย้อนกลับ */}
         <div className="flex justify-center mt-4">
           <Link
             to="/"

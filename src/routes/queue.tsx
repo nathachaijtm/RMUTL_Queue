@@ -2,14 +2,27 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
-type QueueResponse = {
-  queue_code: string;
-};
 
+// ---------------------------------------------------------
+// queue router
+// ---------------------------------------------------------
 export const Route = createFileRoute("/queue")({
   component: QueuePage,
 });
 
+
+// ---------------------------------------------------------
+// queue-code type
+// ---------------------------------------------------------
+type QueueResponse = {
+  queue_code: string;
+};
+
+
+
+// ---------------------------------------------------------
+// hook: ดึงรหัสคิวจาก API
+// ---------------------------------------------------------
 function QueuePage() {
   const [queueResult, setQueueResult] = useState<QueueResponse | null>(null);
 
@@ -26,7 +39,7 @@ function QueuePage() {
         }
       );
       const json = await res.json();
-      return json.data; // 👉 ต้องเป็น { queue_code: string }
+      return json.data; 
     },
   });
 

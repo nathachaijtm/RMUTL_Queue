@@ -4,14 +4,14 @@ import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "./useDebounce";
 
 // ----------------------------------------
-// Define route
+// login route
 // ----------------------------------------
 export const Route = createFileRoute("/login")({
   component: App,
 });
 
 // ----------------------------------------
-// Student Type
+// StudentDATA Type
 // ----------------------------------------
 interface Student {
   std_id_pri: string;
@@ -22,7 +22,7 @@ interface Student {
 }
 
 // ----------------------------------------
-// Hook: Search User via API
+// Hook: ค้นหารายชื่อจาก API
 // ----------------------------------------
 function useSearchUser(query: string) {
   const debouncedQuery = useDebounce(query, 300);
@@ -47,6 +47,7 @@ function useSearchUser(query: string) {
   };
 }
 
+
 // ----------------------------------------
 // App Component
 // ----------------------------------------
@@ -56,11 +57,11 @@ function App() {
   const [highlight, setHighlight] = useState(-1);
   const [selected, setSelected] = useState<Student | null>(null);
   const boxRef = useRef<HTMLDivElement | null>(null);
-
   const { data: filtered, loading } = useSearchUser(query);
 
+
   // ---------------------------------------------------------
-  // Close dropdown on outside click
+  // ปุ่มเปิดปิด dropdown
   // ---------------------------------------------------------
   useEffect(() => {
     const onDoc = (e: MouseEvent) => {
@@ -73,8 +74,9 @@ function App() {
     return () => document.removeEventListener("mousedown", onDoc);
   }, []);
 
+
   // ---------------------------------------------------------
-  // Handle keyboard navigation
+  // Handle keyboard ปุ่มคียบอร์ด
   // ---------------------------------------------------------
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (!open) return;
@@ -100,13 +102,17 @@ function App() {
     }
   };
 
-  // ---------------------------------------------------------
-  // Render
-  // ---------------------------------------------------------
+
+
+  // -------------------------------------------------------
+  // ส่วนเเสดงผล
+  // -------------------------------------------------------
   return (
     <div className="h-[95vh] flex items-center justify-center">
       <div className="flex flex-col gap-8 w-[900px] max-w-[80vh]">
-        {/* Input + Dropdown */}
+
+
+        {/* input ช่องใส่ข้อมูล + dropdowwn */}
         <div className="relative w-full" ref={boxRef}>
           <input
             type="text"
@@ -131,21 +137,23 @@ function App() {
             เลขบัตรประชาชน/รหัสนักศึกษา/ชื่อ-สกุล
           </label>
 
-          {/* Loading */}
+
+
+          {/*Skeleton Loading สักเเปปหนึ่ง */}
           {open && loading && (
             <div className="absolute z-50 w-full mt-2 bg-white p-4 text-center border rounded-3xl">
               ⏳ กำลังค้นหา...
             </div>
           )}
 
-          {/* No result */}
+          {/* เตือนถ้าไม่พบข้อมูล */}
           {open && !loading && filtered.length === 0 && query && (
             <div className="absolute z-50 w-full mt-2 bg-white p-4 text-center border rounded-3xl">
               ❌ ไม่พบข้อมูล
             </div>
           )}
 
-          {/* Suggestion list */}
+          {/* list เเสดงรายชื่อ เลขบัตรประชาชน/รหัสนักศึกษา/ชื่อ-สกุล */}
           {open && filtered.length > 0 && (
             <div className="absolute z-50 w-full mt-2 bg-white shadow-lg border rounded-3xl max-h-72 overflow-y-auto">
               {filtered.map((item: Student, idx: number) => (
@@ -194,7 +202,7 @@ function App() {
           </button>
         </div>
 
-        {/* Next Button */}
+        {/* ปุ่มต่อไป */}
         <div className="flex justify-center">
           <Link
             to="/menu"
