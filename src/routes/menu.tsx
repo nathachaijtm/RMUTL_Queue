@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
+import LayoutBlack from "@/Components/LayoutBlackMenu";
 
 // ---------------------------------------------------------
 // menu Route
@@ -106,20 +107,21 @@ function RouteComponent() {
   // ส่วนเเสดงผล
   // -------------------------------------------------------
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <LayoutBlack>
+    <div className=" flex items-center justify-center">
       <div className="w-full max-w-3xl px-6 py-10">
-        <h1 className="text-4xl font-bold text-center mb-8 pt-10">
+        <h1 className="text-5xl font-bold text-center mb-8 pt-10">
           ต้องการติดต่อเรื่องอะไร
         </h1>
 
         {/* ส่วนเเสดงข้อมูลผู้ใช้*/}
         {userInfo && (
-          <div className="bg-[#FFF8E6] border-2 border-[#F69522] rounded-xl p-3 shadow-sm mb-8">
-            <h2 className="text-2xl font-bold text-[#5F320F] mb-4">
+          <div className="bg-[#FFF8E6] border-2 border-[#F69522] rounded-xl p-6 shadow-sm mb-8">
+            <h2 className="text-3xl font-bold text-[#5F320F] mb-4">
               ข้อมูลผู้ใช้
             </h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-1 gap-1  text-[#5F320F]">
+            <div className="grid grid-cols-1 sm:grid-cols-1 gap-2  text-[#5F320F] text-2xl">
               <div>
                 <span className="font-semibold">ชื่อ:</span>{" "}
                 {userInfo.std_name_th}
@@ -138,7 +140,7 @@ function RouteComponent() {
 
         {/* Loading */}
         {loading && (
-          <div className="text-center text-xl py-6">⏳ กำลังโหลดหัวข้อ...</div>
+          <div className="text-center text-3xl py-6">⏳ กำลังโหลดหัวข้อ...</div>
         )}
 
         {/* ปุ่มเลือกบริการ  1-6 */}
@@ -150,8 +152,8 @@ function RouteComponent() {
                 onClick={() => createQueueAndNavigate(topic)}
                 disabled={isCreating}
                 className="
-          bg-white rounded-full py-8 px-4 shadow-sm 
-          text-xl font-semibold text-gray-700
+          bg-white rounded-full py-10 px-6 shadow-sm 
+          text-2xl font-semibold text-gray-700
           hover:bg-[#F69522] hover:text-white hover:scale-[1.03]
           active:scale-95 transition-all
         "
@@ -166,13 +168,14 @@ function RouteComponent() {
         <div className="flex justify-center mt-4">
           <Link
             to="/"
-            className="bg-[#F69522] text-white font-bold py-4 px-8 rounded-full hover:bg-orange-500 transition-transform transform hover:scale-105 active:scale-95"
+            className="bg-[#F69522] text-white font-bold py-5 px-12 text-2xl rounded-full hover:bg-orange-500 transition-transform transform hover:scale-105 active:scale-95"
           >
             กลับหน้าหลัก
           </Link>
         </div>
       </div>
     </div>
+    </LayoutBlack>
   );
 }
 
