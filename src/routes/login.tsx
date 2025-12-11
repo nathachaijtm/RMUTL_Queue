@@ -132,9 +132,10 @@ function App() {
           />
           <label
             htmlFor="studentId"
-            className="absolute left-8 text-2xl font-extrabold text-black transition-all duration-200 peer-placeholder-shown:top-6 peer-focus:-top-9 peer-focus:text-white peer-not-placeholder-shown:-top-9 peer-not-placeholder-shown:text-white"
+            className="absolute left-8 font-extrabold text-black transition-all duration-200 peer-placeholder-shown:top-6 peer-focus:-top-14 peer-focus:text-white peer-not-placeholder-shown:-top-14 peer-not-placeholder-shown:text-white flex flex-col"
           >
-            เลขบัตรประชาชน/รหัสนักศึกษา/ชื่อ-สกุล
+            <span className="text-xl">เลขบัตรประชาชน/รหัสนักศึกษา/ชื่อ-สกุล</span>
+            <span className="text-xs font-normal">ไม่ต้องกรอกคำนำหน้าชื่อ</span>
           </label>
 
 
@@ -193,9 +194,12 @@ function App() {
 
         {/* Action Buttons */}
         <div className="w-full flex items-center justify-center gap-4">
-          <button className="flex-1 bg-blue-700 rounded-full py-4 text-white text-2xl hover:bg-blue-600 transition-transform hover:scale-105 active:scale-95">
-            สเเกนบัตรประชาชน
-          </button>
+          <Link
+            to="/scan"
+            className="flex-1 bg-blue-700 rounded-full py-4 text-white text-2xl hover:bg-blue-600 transition-transform hover:scale-105 active:scale-95 flex items-center justify-center"
+          >
+            สเแกนบัตรประชาชน
+          </Link>
 
           <button className="flex-1 bg-purple-700 rounded-full py-4 text-white text-2xl hover:bg-purple-600 transition-transform hover:scale-105 active:scale-95">
             เข้าสู่ระบบด้วย ThaID

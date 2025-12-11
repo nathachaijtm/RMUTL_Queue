@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import LayoutBlack from "@/Components/LayoutBlack";
 
 
 // ---------------------------------------------------------
@@ -55,6 +56,7 @@ function QueuePage() {
   }, []);
 
   return (
+    <LayoutBlack>
     <div className="h-[95vh] flex items-center justify-center">
       <div className="p-12 flex flex-col items-center gap-8">
 
@@ -90,5 +92,6 @@ function QueuePage() {
 
       </div>
     </div>
+    </LayoutBlack>
   );
 }
